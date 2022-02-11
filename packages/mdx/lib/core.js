@@ -71,6 +71,7 @@ export function createProcessor(options = {}) {
     outputFormat,
     providerImportSource,
     recmaPlugins,
+    preprocessPlugins,
     rehypePlugins,
     remarkPlugins,
     remarkRehypeOptions = {},
@@ -98,7 +99,7 @@ export function createProcessor(options = {}) {
     )
   }
 
-  const pipeline = unified().use(remarkParse)
+  const pipeline = unified().use(preprocessPlugins || []).use(remarkParse)
 
   if (format !== 'md') {
     pipeline.use(remarkMdx)
